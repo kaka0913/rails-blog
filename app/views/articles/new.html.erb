@@ -2,13 +2,19 @@
 
 <%= form_with model: @article do |form| %>
     <div>
-        <%= formf.label :title %><br>
+        <%= form.label :title %><br>
         <%= form.text_field :title %>
+        <% @article.errors.full_messages_for(:titl).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
     </div>
 
     <div>
         <%= form.label :body %><br>
         <%= form.text_area :body %>
+        <% @article.errors.full_messages_for(:body).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
     </div>
 
     <div>
