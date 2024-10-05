@@ -1,18 +1,37 @@
 <% unless comment.archived? %>
-    <p>
-        <strong>Comment:</strong>
-        <% comment.commenter %>
-    </p>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
 
-    <p>
-        <strong>Comment:</strong>
-        <%= comment.body %>
-    </p>
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
 
+  <p>
+    <strong>Likes:</strong>
+    <%= comment.likes.count %>
+  </p>
+
+  <p>
+    <%= button_to article_comment_likes_path(comment.article.id, comment.id), method: :post, class: "like-button-circle" do %>
+      ⭕ Like
+    <% end %>
+  </p>
+
+  <% if comment.likes.any? %>
     <p>
-        <%= link_to "Destroy Comment", [comment.article, comment], data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                    } %>
+      <%= button_to article_comment_like_path(comment.article.id, comment.id, comment.likes.first.id), method: :delete, class: "unlike-button-circle", data: { turbo_confirm: "Remove your like?" } do %>
+        ⭕ Unlike
+      <% end %>
     </p>
+  <% end %>
+
+  <p>
+    <%= link_to "Destroy Comment", [comment.article, comment], data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+                } %>
+  </p>
 <% end %>
