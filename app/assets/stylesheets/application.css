@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+ .like-button-circle, .unlike-button-circle {
+    background-color: transparent;
+    color: blue;
+    border: 2px solid blue;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 36px; /* テキストを丸の中央に配置 */
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .like-button-circle:hover, .unlike-button-circle:hover {
+    background-color: blue;
+    color: white;
+  }
+  
+  .like-button-circle i, .unlike-button-circle i {
+    margin-right: 5px;
+  }
+  
