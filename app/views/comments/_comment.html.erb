@@ -15,18 +15,16 @@
   </p>
 
   <p>
-    <%= button_to article_comment_likes_path(comment.article.id, comment.id), method: :post, class: "like-button-circle" do %>
-      ⭕ Like
-    <% end %>
-  </p>
-
-  <% if comment.likes.any? %>
-    <p>
-      <%= button_to article_comment_like_path(comment.article.id, comment.id, comment.likes.first.id), method: :delete, class: "unlike-button-circle", data: { turbo_confirm: "Remove your like?" } do %>
+    <% if current_user.likes.exists?(comment: comment) %>
+      <%= button_to article_comment_like_path(comment.article.id, comment.id, current_user.likes.find_by(comment: comment).id), method: :delete, class: "unlike-button-circle", data: { turbo_confirm: "Remove your like?" } do %>
         ⭕ Unlike
       <% end %>
-    </p>
-  <% end %>
+    <% else %>
+      <%= button_to article_comment_likes_path(comment.article.id, comment.id), method: :post, class: "like-button-circle" do %>
+        ⭕ Like
+      <% end %>
+    <% end %>
+  </p>
 
   <p>
     <%= link_to "Destroy Comment", [comment.article, comment], data: {
