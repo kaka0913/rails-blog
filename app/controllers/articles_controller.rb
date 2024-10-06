@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :require_login, only: [:create, :new, :edit, :update, :destroy]
   def index
     @articles = Article.all
   end
@@ -38,8 +39,13 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
+    redirect_to articles_path, status: :see_other
+  end
 
-    redirect_to root_path, status: :see_other
+  def require_login
+    unless current_user
+      redirect_to new_user_path, alert: "ログインが必要です"
+    end
   end
 
   private

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "articles#index"
+  root "users#new"
 
   resources :articles do
     resources :comments do
@@ -7,4 +7,5 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:new, :create, :show, :edit, :update]
 end
