@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:new, :create, :show, :edit, :update]
+
+  get "signin", to: "users#signin_form"
+  post "signin", to: "users#signin"
+  delete "signout", to: "users#signout"
 end

@@ -13,6 +13,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def signin
+    user = User.find_by(email: params[:email], name: params[:name])
+    if user
+      session[:user_id] = user.id
+      redirect_to articles_path, notice: "ログインしました"
+    else
+      flash.now[:alert] = "メールアドレスまたはパスワードが間違っています"
+      render :signin_form
+    end
+  end
+
+  def signout
+    session[:user_id] = nil
+    redirect_to root_path, notice: "ログアウトしました"
+  end
+
   def show
     @user = User.find(params[:id])
   end
